@@ -1,12 +1,11 @@
 <script setup>
-import Home from './pages/Home.vue';
 import Header from './components/Header.vue';
 import Footer from './components/Footer.vue';
 </script>
 
 <template>
   <Header />
-  <Home />
+  <RouterView />
   <Footer />
 </template>
 
