@@ -28,7 +28,7 @@ public class JwtServiceImpl implements JwtService {
 
     // Date expTime = new Date();
     // expTime.setTime(expTime.getTime() * 1000 * 60 * 5); // 현재 시간에서 5분을 더한 값으로 설정
-    Date expTime = new Date(System.currentTimeMillis() + 5000); // 현재 시간에서 5초를 더한 값으로 설정
+    Date expTime = new Date(System.currentTimeMillis() + 1000 * 60 * 5); // 현재 시간에서 5분을 더한 값으로 설정
 
     byte[] secretByteKey = DatatypeConverter.parseBase64Binary(secretKey);
     Key signKey = new SecretKeySpec(secretByteKey, SignatureAlgorithm.HS256.getJcaName());
@@ -57,7 +57,7 @@ public class JwtServiceImpl implements JwtService {
 
         Claims claims = Jwts.parserBuilder().setSigningKey(signKey).build().parseClaimsJws(token).getBody();
 
-        logger.info("Login successful for user: {}", claims.get("id")); // 예시: 토큰에 포함된 username 클레임을 출력합니다.
+        logger.info("로그인에 성공한 유저: {}", claims.get("id"));
 
         return claims;
       } catch (ExpiredJwtException e) {

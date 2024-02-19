@@ -1,5 +1,6 @@
 package org.project.monitor.backend.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -66,7 +67,14 @@ public class AccountController {
       int id = Integer.parseInt(claims.get("id").toString());
 
       Date expirationDate = claims.getExpiration();
-      response.put("expirationDate", expirationDate);
+
+      SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd a HH:mm:ss");
+      // 원하는 데이터 포맷 지정
+      String strNowDate = simpleDateFormat.format(expirationDate);
+
+      logger.info("JWT 만료 시간은?: {}", strNowDate);
+
+      response.put("expirationDate", strNowDate);
       response.put("id", id);
       response.put("message", "Token is valid");
       // return new ResponseEntity<>(id, HttpStatus.OK);
