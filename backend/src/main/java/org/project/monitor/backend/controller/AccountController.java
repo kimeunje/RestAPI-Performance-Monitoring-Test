@@ -23,7 +23,7 @@ public class AccountController {
   @Autowired
   MemberRepository memberRepository;
 
-  @PostMapping("account/login")
+  @PostMapping("/api/account/login")
   public ResponseEntity<Integer> login(@RequestBody Map<String, String> params, HttpServletResponse res) {
     Member member = memberRepository.findByEmailAndPassword(params.get("email"), params.get("password"));
 
