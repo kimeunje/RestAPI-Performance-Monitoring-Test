@@ -34,6 +34,9 @@ load()
           <i class="fa fa-trash" @click="remove(i.id)"></i>
         </li>
       </ul>
+      <router-link to="/order" class="btn btn-primary">
+        구입하기
+      </router-link>
     </div>
   </div>
 </template>
@@ -69,5 +72,13 @@ load()
   float: right;
   margin-top: 60px;
   font-size: 20px;
+}
+
+.cart .btn {
+  width: 300px;
+  padding: 30px 50px;
+  font-size: 20px;
+  display: block;
+  margin: 0 auto;
 }
 </style>
