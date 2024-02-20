@@ -7,9 +7,20 @@ const state = reactive({
   items: []
 })
 
-axios.get("/api/cart/items").then(({ data }) => {
-  state.items = data
-})
+const load = () => {
+  axios.get("/api/cart/items").then(({ data }) => {
+    state.items = data
+  })
+}
+
+const remove = (itemId) => {
+  axios.delete(`/api/cart/items/${itemId}`).then(() => {
+    load()
+  })
+}
+
+load()
+
 </script>
 
 <template>
@@ -20,7 +31,7 @@ axios.get("/api/cart/items").then(({ data }) => {
           <img :src="i.imgPath" />
           <span class="name">{{ i.name }}</span>
           <span class="price">{{ lib.getNumberFormmated(i.price - i.price * i.discountPer / 100) }}</span>
-          <i class="fa fa-trash"></i>
+          <i class="fa fa-trash" @click="remove(i.id)"></i>
         </li>
       </ul>
     </div>
