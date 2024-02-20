@@ -1,5 +1,12 @@
 <script setup>
 import lib from '@/scripts/lib';
+import axios from 'axios';
+
+const addToCart = (itemId) => {
+  axios.post(`/api/cart/items/${itemId}`).then(() => {
+    console.log('success')
+  })
+}
 
 defineProps({
   item: Object,
@@ -8,17 +15,16 @@ defineProps({
 
 <template>
   <div class="card shadow-sm">
-    <span
-      class="img"
-      :style="{ backgroundImage: `url(${item.imgPath})` }"
-    ></span>
+    <span class="img" :style="{ backgroundImage: `url(${item.imgPath})` }"></span>
     <div class="card-body">
       <p class="card-text">
         <span>{{ item.name }} &nbsp;</span>
         <span class="discount badge bg-danger"> {{ item.discountPer }}% </span>
       </p>
       <div class="d-flex justify-content-between align-items-center">
-        <button class="btn btn-primary">구입하기</button>
+        <button class="btn btn-primary" @click="addToCart(item.id)">
+          <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+        </button>
         <small class="price text-muted">
           {{ lib.getNumberFormmated(item.price) }}원
         </small>
