@@ -1,10 +1,19 @@
 <script setup>
-import { computed, reactive } from 'vue';
+import { computed, reactive, ref } from 'vue';
 import axios from 'axios';
 import lib from '@/scripts/lib';
 
 const state = reactive({
-  items: []
+  items: [],
+
+})
+
+const form = ref({
+  name: "",
+  address: "",
+  payment: "",
+  cardNumber: "",
+  items: "",
 })
 
 const computedPrice = computed(() => {
@@ -20,6 +29,14 @@ const load = () => {
   axios.get("/api/cart/items").then(({ data }) => {
     state.items = data;
     console.log(data);
+  })
+}
+
+const submit = () => {
+  const args = JSON.parse(JSON.stringify(form.value))
+  args.items = JSON.stringify(state.items)
+  axios.post("/api/orders", args).then(() => {
+    console.log('success');
   })
 }
 
@@ -53,33 +70,34 @@ load()
         </div>
         <div class="col-md-7 col-lg-8">
           <h4 class="mb-3">주문자 정보</h4>
-          <form class="needs-validation" novalidate="">
+          <div class="needs-validation" novalidate="">
             <div class="row g-3">
               <div class="col-12"><label for="username" class="form-label">이름</label>
-                <input type="text" class="form-control" id="username" placeholder="Username" required="">
+                <input type="text" class="form-control" id="username" placeholder="Username" v-model="form.name">
 
               </div>
               <div class="col-12"><label for="address" class="form-label">주소</label><input type="text"
-                  class="form-control" id="address" placeholder="1234 Main St" required="">
+                  class="form-control" id="address" placeholder="1234 Main St" v-model="form.address">
                 <div class="invalid-feedback"> Please enter your shipping address. </div>
               </div>
             </div>
             <hr class="my-4">
             <h4 class="mb-3">결제 수단</h4>
             <div class="my-3">
-              <div class="form-check"><input id="credit" name="paymentMethod" type="radio" class="form-check-input"
-                  checked="" required=""><label class="form-check-label" for="credit">신용 카드</label></div>
-              <div class="form-check"><input id="debit" name="paymentMethod" type="radio" class="form-check-input"
-                  required=""><label class="form-check-label" for="debit">무통장 입금</label></div>
+              <div class="form-check"><input id="card" name="paymentMethod" type="radio" class="form-check-input"
+                  value="card" v-model="form.payment"><label class="form-check-label" for="card">신용 카드</label>
+              </div>
+              <div class="form-check"><input id="bank" name="paymentMethod" type="radio" class="form-check-input"
+                  value="bank" v-model="form.payment"><label class="form-check-label" for="bank">무통장 입금</label></div>
             </div>
             <div class="row gy-3">
               <div class="col-md-6"><label for="cc-name" class="form-label">카드 번호</label>
-                <input type="text" class="form-control" id="cc-name" placeholder="" required="">
+                <input type="text" class="form-control" id="cc-name" placeholder="" v-model="form.cardNumber">
               </div>
             </div>
             <hr class="my-4">
-            <button class="w-100 btn btn-primary btn-lg" type="submit">결제하기</button>
-          </form>
+            <button class="w-100 btn btn-primary btn-lg" @click="submit()">결제하기</button>
+          </div>
         </div>
       </div>
     </main>
