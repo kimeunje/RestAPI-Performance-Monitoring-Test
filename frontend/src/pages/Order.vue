@@ -1,5 +1,6 @@
 <script setup>
 import { computed, reactive, ref } from 'vue';
+import router from '@/scripts/router';
 import axios from 'axios';
 import lib from '@/scripts/lib';
 
@@ -36,7 +37,7 @@ const submit = () => {
   const args = JSON.parse(JSON.stringify(form.value))
   args.items = JSON.stringify(state.items)
   axios.post("/api/orders", args).then(() => {
-    console.log('success');
+    router.push('/orders')
   })
 }
 
