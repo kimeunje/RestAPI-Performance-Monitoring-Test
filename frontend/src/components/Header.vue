@@ -59,6 +59,10 @@ const logout = () => {
 </template>
 
 <style scoped>
+
+header ul li a {
+  cursor: pointer;
+}
 header .navbar .cart {
   margin-left: auto;
   color: #fff;
