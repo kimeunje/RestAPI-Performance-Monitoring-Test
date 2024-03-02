@@ -40,7 +40,9 @@ public class OrderController {
       throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
     }
 
-    List<Order> orders = orderRepository.findAll();
+    int memberId = jwtService.getId(token);
+    
+    List<Order> orders = orderRepository.findByMemberIdOrderByIdDesc(memberId);
 
     return new ResponseEntity<>(orders, HttpStatus.OK);
   }
