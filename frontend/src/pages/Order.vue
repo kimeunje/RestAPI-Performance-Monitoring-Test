@@ -37,6 +37,7 @@ const submit = () => {
   const args = JSON.parse(JSON.stringify(form.value))
   args.items = JSON.stringify(state.items)
   axios.post("/api/orders", args).then(() => {
+    alert('주문 완료하였습니다.')
     router.push('/orders')
   })
 }

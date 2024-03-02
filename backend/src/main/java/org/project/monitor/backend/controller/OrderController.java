@@ -2,6 +2,7 @@ package org.project.monitor.backend.controller;
 
 import java.util.List;
 
+import org.project.monitor.backend.Repository.CartRepository;
 import org.project.monitor.backend.Repository.OrderRepository;
 import org.project.monitor.backend.dto.OrderDto;
 import org.project.monitor.backend.entity.Order;
@@ -29,6 +30,9 @@ public class OrderController {
   @Autowired
   OrderRepository orderRepository;
 
+  @Autowired
+  CartRepository cartRepository;
+
   @GetMapping("/api/orders")
   public ResponseEntity getOrder(@CookieValue(value = "token", required = false) String token) {
 
@@ -52,7 +56,9 @@ public class OrderController {
 
     Order newOrder = new Order();
 
-    newOrder.setMemberId(jwtService.getId(token));
+    int memberId = jwtService.getId(token);
+
+    newOrder.setMemberId(memberId);
     newOrder.setName(dto.getName());
     newOrder.setAddress(dto.getAddress());
     newOrder.setPayment(dto.getPayment());
@@ -60,6 +66,8 @@ public class OrderController {
     newOrder.setItems(dto.getItems());
 
     orderRepository.save(newOrder);
+
+    cartRepository.deleteByMemberId(memberId);
 
     return new ResponseEntity<>(HttpStatus.OK);
   }
