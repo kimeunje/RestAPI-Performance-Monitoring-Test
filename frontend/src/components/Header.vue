@@ -67,7 +67,7 @@ const logout = () => {
           </svg>
           <strong>Gallery</strong>
         </router-link>
-        <router-link to="cart" class="cart btn">
+        <router-link to="cart" class="cart btn" v-if="$store.state.account.id">
           <i class="fa fa-shopping-cart" aria-hidden="true"></i>
         </router-link>
         <button
