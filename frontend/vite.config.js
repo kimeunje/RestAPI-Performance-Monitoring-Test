@@ -16,6 +16,9 @@ export default defineConfig({
       },
     }
   },
+  build: {
+    outDir: '../backend/src/main/resources/static',
+  },
   plugins: [
     vue(),
   ],
