@@ -72,4 +72,19 @@ api 300번 요청시
 
 ![image](https://github.com/kimeunje/RestAPI-Performance-Monitoring-Test/assets/143335772/292a87cd-892a-49f7-af93-ddd87c5ea6be)
 
+api 2000번 요청시
+![image](https://github.com/kimeunje/RestAPI-Performance-Monitoring-Test/assets/143335772/1d4a1d96-1d8f-43c4-9b16-22d306cf8ba3)
+
+![image](https://github.com/kimeunje/RestAPI-Performance-Monitoring-Test/assets/143335772/ebb9f4d8-924c-40f9-a9d3-d64aaff27196)
+
+![image](https://github.com/kimeunje/RestAPI-Performance-Monitoring-Test/assets/143335772/c8182acf-a1fb-4ee9-8226-3dc527a0b7b1)
+
+
 ### [해결 방안]
+단순 api 요청의 경우 응답 속도면에서는 큰 차이가 없었으나, CPU 소모량에서 요청이 많을수록 훨씬 높은 수치를 보여줬습니다.
+
+
+이론적으로는 클라우드 공급사에 요청해 CPU 사양을 높이는 스케일업(Scale-up)이나 서버를 여러대 추가해 요청을 분산시키는 스케일아웃(Scale-out) 방식으로 해결 방안을 낼 수 있습니다.
+
+
+현재 여유 인스턴스가 없어서 테스트할 수 없었지만, 인스턴스가 존재했다면 Nginx 에서 제공해주는 로드밸런싱 기능을 이용해 서버를 분산시켜 요청을 받아 해결하겠습니다.
