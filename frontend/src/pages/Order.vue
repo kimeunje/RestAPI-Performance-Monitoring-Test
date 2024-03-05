@@ -1,5 +1,5 @@
 <script setup>
-import { computed, reactive, ref } from 'vue';
+import {computed, reactive, ref} from 'vue';
 import router from '@/scripts/router';
 import axios from 'axios';
 import lib from '@/scripts/lib';
@@ -27,7 +27,7 @@ const computedPrice = computed(() => {
 })
 
 const load = () => {
-  axios.get("/api/cart/items").then(({ data }) => {
+  axios.get("/api/cart/items").then(({data}) => {
     state.items = data;
     console.log(data);
   })
@@ -50,8 +50,6 @@ load()
     <main>
       <div class="py-5 text-center">
         <h2>주문하기</h2>
-        <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required form group
-          has a validation state that can be triggered by attempting to submit the form without completing it.</p>
       </div>
       <div class="row g-5">
         <div class="col-md-5 col-lg-4 order-md-last">
@@ -61,7 +59,8 @@ load()
             <li class="list-group-item d-flex justify-content-between lh-sm" v-for="(i, idx) in state.items" :key="idx">
               <div>
                 <h6 class="my-0">{{ i.name }}</h6>
-              </div><span class="text-muted">{{ lib.getNumberFormmated(i.price - i.price * i.discountPer / 100) }}원</span>
+              </div>
+              <span class="text-muted">{{ lib.getNumberFormmated(i.price - i.price * i.discountPer / 100) }}원</span>
             </li>
           </ul>
           <hr class="my-4">
@@ -79,18 +78,23 @@ load()
 
               </div>
               <div class="col-12"><label for="address" class="form-label">주소</label><input type="text"
-                  class="form-control" id="address" placeholder="1234 Main St" v-model="form.address">
-                <div class="invalid-feedback"> Please enter your shipping address. </div>
+                                                                                           class="form-control"
+                                                                                           id="address"
+                                                                                           placeholder="1234 Main St"
+                                                                                           v-model="form.address">
+                <div class="invalid-feedback"> Please enter your shipping address.</div>
               </div>
             </div>
             <hr class="my-4">
             <h4 class="mb-3">결제 수단</h4>
             <div class="my-3">
               <div class="form-check"><input id="card" name="paymentMethod" type="radio" class="form-check-input"
-                  value="card" v-model="form.payment"><label class="form-check-label" for="card">신용 카드</label>
+                                             value="card" v-model="form.payment"><label class="form-check-label"
+                                                                                        for="card">신용 카드</label>
               </div>
               <div class="form-check"><input id="bank" name="paymentMethod" type="radio" class="form-check-input"
-                  value="bank" v-model="form.payment"><label class="form-check-label" for="bank">무통장 입금</label></div>
+                                             value="bank" v-model="form.payment"><label class="form-check-label"
+                                                                                        for="bank">무통장 입금</label></div>
             </div>
             <div class="row gy-3">
               <div class="col-md-6"><label for="cc-name" class="form-label">카드 번호</label>
