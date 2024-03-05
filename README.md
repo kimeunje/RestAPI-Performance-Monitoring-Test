@@ -33,16 +33,13 @@ Prometheus 2.43 + Grafana 10.3.3
 ## 1. 서버 모니터링 시각화
 ### [문제 상황]
 자정이 넘어가기 전 서버가 정상적으로 작동하고 있는지 확인해야 했으며,  
-
 콘솔 창에 출력되는 내용물로는 모니터링에 물리적으로 한계가 있었습니다.
 
 ### [해결 방안]
-실무에서 사용했던 Flask 웹 프레임워크 대신 Spring 웹 프레임워크를 사용하고,
+실무에서 사용했던 Flask 웹 프레임워크 대신 Spring 웹 프레임워크를 사용하고,  
+스프링 부트 애플리케이션의 상태를 제공하는 스프링 Actuator를 이용했습니다.
 
-스프링 부트 애플리케이션의 상태를 제공하는 스프링 Actuator를 이용합니다.
-
-상태지표를 과거부터 현재까지 보관하는 Prometheus와 시각화 도구인 Grafana를 
-
+상태지표를 과거부터 현재까지 보관하는 Prometheus와 시각화 도구인 Grafana를  
 사용하여 모니터링 시스템을 시각화하여 구축했습니다.
 
 http://3.37.157.135:3000/d/X034JGT7Gz/springboot-apm-dashboard
@@ -54,30 +51,33 @@ http://3.37.157.135:3000/d/X034JGT7Gz/springboot-apm-dashboard
 자정이 지나고 새벽에 발생한 서버 문제에 대처할 수 없었습니다.
 
 ### [해결 방안]
+Grafana에서 제공하는 alert 기능을 이용해 CPU 등 특정 자원의 소모량이 일정치 이상 넘어가면 메일이 오게 설정하였습니다.
 
+<img src="https://github.com/kimeunje/RestAPI-Performance-Monitoring-Test/assets/143335772/80324f1f-aa74-4711-ab1d-be6edbfdc156" width="60%" height="60%" />
+
+<img src="https://github.com/kimeunje/RestAPI-Performance-Monitoring-Test/assets/143335772/abbe8fe3-035a-4360-ba5f-0909ecec45a4" width="80%" height="80%" />
 
 ## 3. 서버 최적화
 ### [문제 상황]
-서버에 순간적으로 평소의 20배에 달하는 요청이 들어와서 서버에 
-
-부하가 발생해 큰 손실이 발생했습니다.
+서버에 순간적으로 평소의 20배에 달하는 요청이 들어와서 서버에 부하가 발생해 큰 손실이 발생했습니다.
 
 ### [원인]
 
-api 300번 요청시 
+#### api 300번 요청시 
 
+##### `CPU 소모량`
 ![image](https://github.com/kimeunje/RestAPI-Performance-Monitoring-Test/assets/143335772/713639f6-28aa-4fdd-89c4-966260a34b7c)
 
-![image](https://github.com/kimeunje/RestAPI-Performance-Monitoring-Test/assets/143335772/9e0f1352-ab89-4e9a-8b54-46659805b1e7)
+##### `응답 속도`
+<img src="https://github.com/kimeunje/RestAPI-Performance-Monitoring-Test/assets/143335772/9e0f1352-ab89-4e9a-8b54-46659805b1e7" width="40%" height="40%" /> <img src="https://github.com/kimeunje/RestAPI-Performance-Monitoring-Test/assets/143335772/292a87cd-892a-49f7-af93-ddd87c5ea6be" width="40%" height="40%" />
 
-![image](https://github.com/kimeunje/RestAPI-Performance-Monitoring-Test/assets/143335772/292a87cd-892a-49f7-af93-ddd87c5ea6be)
+#### api 2000번 요청시
 
-api 2000번 요청시
+##### `CPU 소모량`
 ![image](https://github.com/kimeunje/RestAPI-Performance-Monitoring-Test/assets/143335772/1d4a1d96-1d8f-43c4-9b16-22d306cf8ba3)
 
-![image](https://github.com/kimeunje/RestAPI-Performance-Monitoring-Test/assets/143335772/ebb9f4d8-924c-40f9-a9d3-d64aaff27196)
-
-![image](https://github.com/kimeunje/RestAPI-Performance-Monitoring-Test/assets/143335772/c8182acf-a1fb-4ee9-8226-3dc527a0b7b1)
+##### `응답 속도`
+<img src="https://github.com/kimeunje/RestAPI-Performance-Monitoring-Test/assets/143335772/ebb9f4d8-924c-40f9-a9d3-d64aaff27196" width="40%" height="40%" /> <img src="https://github.com/kimeunje/RestAPI-Performance-Monitoring-Test/assets/143335772/c8182acf-a1fb-4ee9-8226-3dc527a0b7b1" width="40%" height="40%" />
 
 
 ### [해결 방안]
